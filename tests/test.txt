@@ -1,0 +1,15 @@
+MOV R1, 100         ; R1 = 100
+MOV R2, 50          ; R2 = 50
+MOV #20, R1         ; Memory[20] = 100
+MOV #21, R2         ; Memory[21] = 50
+ADD R1, R2          ; R1 = 150
+SUB R2, 10          ; R2 = 40
+MOV R3, #20         ; R3 = Memory[20] = 100
+ADD R3, #21         ; R3 = 100 + 50 = 150
+SUB R3, R2          ; R3 = 150 - 40 = 110
+MOV #25, R3         ; Memory[25] = 110
+PRN R1              ; prints 150 
+PRN R2              ; prints 40 
+PRN R3              ; prints 110 
+PRN #25             ; prints 110 
+HLT                 ; Halts

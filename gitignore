@@ -1,0 +1,29 @@
+# Derlenmiş dosyalar
+*.o
+*.out
+computer
+a.out
+
+# Object klasörü
+obj/
+
+# IDE dosyaları
+.vscode/
+.idea/
+*.swp
+*~
+
+# Sistem dosyaları
+.DS_Store
+Thumbs.db
+
+# Geçici dosyalar
+*.bak
+*.tmp
+
+# Debug dosyaları
+*.dSYM/
+
+# Test çıktıları
+tests/output/
+test_results/
