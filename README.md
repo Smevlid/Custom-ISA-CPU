@@ -1,102 +1,110 @@
-# CPU Simülatörü 🖥️
+# CPU Simulator 🖥️
 
-Basit bir CPU simülatörü projesi. Assembly benzeri komutlarla temel işlemler gerçekleştiren, register'lar ve bellek yönetimine sahip bir sanal işlemci.
+A simple CPU simulator project. A virtual processor with registers and memory management that performs basic operations using assembly-like instructions.
 
-## 📋 Özellikler
+## 📋 Features
 
-- **6 adet register** (R1-R6)
-- **100 byte bellek** alanı
-- **8 farklı komut** desteği
-- **3 farklı çalışma modu**
-- Dosyadan program yükleme
-- Interaktif input alma
+- **6 registers** (R1–R6)
+- **100 byte memory** area
+- **8 different instruction** support
+- **3 different execution modes**
+- Load program from file
+- Interactive user input
 
-## 🚀 Kurulum
+## 🚀 Installation
 
-### Gereksinimler
-- C++ derleyici (g++ önerilir)
-- Make (opsiyonel)
+### Requirements
 
-### Derleme
+- C++ compiler (g++ recommended)
+- Make (optional)
 
-**Make kullanarak (önerilir):**
+### Build
+
+**Using Make (recommended):**
+
 ```bash
 make
 ```
 
-**Manuel derleme:**
+````
+
+**Manual build:**
+
 ```bash
 g++ -I include -Wall -Wextra -std=c++11 -o computer src/main.cpp src/Computer.cpp src/CPU.cpp src/Program.cpp
 ```
 
-## 💻 Kullanım
+## 💻 Usage
 
 ```bash
-./computer <program_dosyası> <mod>
+./computer <program_file> <mode>
 ```
 
-### Modlar:
-- **0**: Sadece program çalıştır (çıktı gösterme)
-- **1**: Her komuttan sonra register'ları göster
-- **2**: Her komuttan sonra register'ları ve belleği göster
+### Modes:
 
-### Örnek:
+- **0** → Run program silently (no output)
+- **1** → Show registers after each instruction
+- **2** → Show registers + memory after each instruction
+
+### Example:
+
 ```bash
 ./computer program.txt 1
 ```
 
-## 📖 Desteklenen Komutlar
+## 📖 Supported Instructions
 
-| Komut | Açıklama | Örnek |
-|-------|----------|-------|
-| `MOV` | Değer taşıma | `MOV R1, 5` |
-| `ADD` | Toplama | `ADD R1, R2` |
-| `SUB` | Çıkarma | `SUB R1, 10` |
-| `JMP` | Koşulsuz/Koşullu atlama | `JMP 5` veya `JMP R1, 5` |
-| `JPN` | Negatif/sıfırsa atla | `JPN R1, 3` |
-| `PRN` | Yazdır | `PRN R1` |
-| `INP` | Kullanıcıdan input al | `INP R1` |
-| `HLT` | Programı durdur | `HLT` |
+| Instruction | Description                      | Example                |
+| ----------- | -------------------------------- | ---------------------- |
+| `MOV`       | Move value                       | `MOV R1, 5`            |
+| `ADD`       | Addition                         | `ADD R1, R2`           |
+| `SUB`       | Subtraction                      | `SUB R1, 10`           |
+| `JMP`       | Unconditional / conditional jump | `JMP 5` or `JMP R1, 5` |
+| `JPN`       | Jump if ≤ 0 (negative or zero)   | `JPN R1, 3`            |
+| `PRN`       | Print value                      | `PRN R1`               |
+| `INP`       | Read input from user             | `INP R1`               |
+| `HLT`       | Halt / stop execution            | `HLT`                  |
 
-## 📝 Operand Türleri
+## 📝 Operand Types
 
-- **Register**: `R1`, `R2`, ..., `R6`
-- **Sabit değer**: `5`, `-10`, `100`
-- **Bellek adresi**: `#0`, `#15`, `#99`
+- Register: `R1`, `R2`, …, `R6`
+- Constant: `5`, `-10`, `100`
+- Memory address: `#0`, `#15`, `#99`
 
-## 📄 Program Dosyası Formatı
+## 📄 Program File Format
 
-```assembly
-; Bu bir yorum satırıdır
-MOV R1, 10      ; R1'e 10 değerini ata
-MOV R2, 5       ; R2'ye 5 değerini ata
-ADD R1, R2      ; R1 = R1 + R2 (sonuç: 15)
-PRN R1          ; R1'i ekrana yazdır
-HLT             ; Programı durdur
+```text
+; This is a comment
+MOV R1, 10      ; R1 ← 10
+MOV R2, 5       ; R2 ← 5
+ADD R1, R2      ; R1 ← R1 + R2  → 15
+PRN R1          ; print 15
+HLT
 ```
 
-## 🏗️ Proje Yapısı
+## 🏗️ Project Structure
 
 ```
 Custom-ISA-CPU/
-├── src/                # Kaynak dosyaları (.cpp)
+├── src/
 │   ├── main.cpp
 │   ├── Computer.cpp
 │   ├── CPU.cpp
 │   └── Program.cpp
-├── include/            # Header dosyaları (.h)
+├── include/
 │   ├── Computer.h
 │   ├── CPU.h
 │   └── Program.h
-├── obj/                # Object dosyaları (derleme sonrası, otomatik)
-├── Makefile            # Derleme scripti
-├── .gitignore          # Git ignore dosyası
-└── README.md           # Bu dosya
+├── obj/                (generated)
+├── Makefile
+├── .gitignore
+└── README.md
 ```
 
-## 🎯 Örnek Programlar
+## 🎯 Example Programs
 
-### 1. Basit Toplama
+### 1. Simple Addition
+
 ```assembly
 MOV R1, 10
 MOV R2, 20
@@ -105,130 +113,64 @@ PRN R1
 HLT
 ```
 
-**Çıktı:**
+**Expected output (mode 1):**
+
 ```
-MOV R1, 10 - R1=10, R2=0, R3=0, R4=0, R5=0, R6=0
-MOV R2, 20 - R1=10, R2=20, R3=0, R4=0, R5=0, R6=0
-ADD R1, R2 - R1=30, R2=20, R3=0, R4=0, R5=0, R6=0
 30
-PRN R1 - R1=30, R2=20, R3=0, R4=0, R5=0, R6=0
-HLT - R1=30, R2=20, R3=0, R4=0, R5=0, R6=0
 ```
 
-### 2. Döngü ile Sayma
+### 2. Counting Loop
+
 ```assembly
-MOV R1, 1       ; Sayaç = 1
-MOV R2, 5       ; Maksimum değer = 5
-PRN R1          ; Mevcut sayıyı yazdır
-ADD R1, 1       ; Sayacı 1 arttır
-SUB R2, 1       ; Maksimum değeri 1 azalt
-JPN R2, 3       ; Eğer R2 <= 0 ise 3. satıra (PRN) git
+MOV R1, 1
+MOV R2, 5
+PRN R1
+ADD R1, 1
+SUB R2, 1
+JPN R2, 3
 HLT
 ```
 
-### 3. Bellek Kullanımı
+### 3. Memory Example
+
 ```assembly
-MOV R1, 42      ; R1 = 42
-MOV #0, R1      ; Belleğin 0. adresine R1'i yaz
-MOV #1, 100     ; Belleğin 1. adresine 100 yaz
-MOV R2, #0      ; Belleğin 0. adresinden R2'ye oku
-PRN R2          ; R2'yi yazdır (42)
-MOV R3, #1      ; Belleğin 1. adresinden R3'e oku
-PRN R3          ; R3'ü yazdır (100)
+MOV R1, 42
+MOV #0, R1
+MOV #1, 100
+MOV R2, #0
+PRN R2          ; 42
+MOV R3, #1
+PRN R3          ; 100
 HLT
 ```
 
-## 🛠️ Make Komutları
-
-| Komut | Açıklama |
-|-------|----------|
-| `make` | Projeyi derle |
-| `make clean` | Derlenmiş dosyaları sil |
-| `make run ARGS='prog.txt 1'` | Derle ve çalıştır |
-| `make debug` | GDB debugger başlat |
-| `make help` | Yardım menüsü göster |
-| `make info` | Proje bilgilerini göster |
-
-### Kullanım Örnekleri
+## 🛠️ Make Commands
 
 ```bash
-# Projeyi derle
-make
+make              # build
+make clean        # remove build files
+make run ARGS='prog.txt 1'   # build + run
+make debug        # run with gdb
+make help         # show commands
+```
 
-# Temizle ve yeniden derle
+## 🐛 Debugging
+
+```bash
 make clean
 make
-
-# Bir program çalıştır
-make run ARGS='test.txt 1'
-
-# Debug modda çalıştır
 make debug
 ```
 
-## 🧹 Temizleme
+Then in gdb:
 
-```bash
-# Object ve executable dosyalarını sil
-make clean
-
-# Tüm geçici dosyaları da sil
-make distclean
 ```
-
-## 📚 Teknik Detaylar
-
-- **Register boyutu**: 32-bit integer
-- **Bellek boyutu**: 100 byte (unsigned char)
-- **Maksimum program uzunluğu**: 500 satır
-- **Register aralığı**: R1-R6
-- **Bellek aralığı**: #0-#99
-- **Derleyici**: g++ (C++11 standardı)
-
-## ⚠️ Sınırlamalar
-
-- Maksimum 6 register
-- Bellek adresleri 0-99 arası
-- Program dosyası maksimum 500 satır
-- Tamsayı işlemleri (float/double desteklenmez)
-
-## 🐛 Hata Ayıklama
-
-### Derleme Hataları
-```bash
-# Detaylı bilgi için
-make clean
-make
-
-# Header dosyaları bulunamazsa
-# include/ klasörünün doğru yerde olduğundan emin olun
-```
-
-### Çalışma Zamanı Hataları
-```bash
-# GDB ile debug
-make debug
 (gdb) run program.txt 1
 (gdb) break CPU::execute
-(gdb) continue
+(gdb) run
 ```
 
-## 🤝 Katkıda Bulunma
+**Bugs / suggestions →** open an issue.
 
-1. Fork yapın
-2. Feature branch oluşturun (`git checkout -b feature/YeniOzellik`)
-3. Commit yapın (`git commit -m 'Yeni özellik eklendi'`)
-4. Push yapın (`git push origin feature/YeniOzellik`)
-5. Pull Request açın
-
-## 📝 Lisans
-
-Bu proje eğitim amaçlıdır - CSE241 Nesne Yönelimli Programlama dersi kapsamında geliştirilmiştir.
-
-## 👨‍💻 Geliştirici
-
-Gebze Teknik Üniversitesi - Bilgisayar Mühendisliği
-
----
-
-**Not**: Herhangi bir hata veya öneri için issue açabilirsiniz.
+```
+````
